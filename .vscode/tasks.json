@@ -1,0 +1,33 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "StartServer",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/Server/TurkeyTickleTube.Web/TurkeyTickleTube.Web.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "StartClient",
+            "type": "npm",
+            "script": "start",
+            "path": "Client/TurkeyTickleTube/",
+            "problemMatcher": {
+                "owner": "custom",
+                "pattern": {
+                    "regexp": "__________"
+                },
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": "\\*\\* Angular Live Development Server is listening .*",
+                    "endsPattern": "i ｢wdm｣: Compiled .*"
+                }
+            },
+            "isBackground": true
+        }
+    ]
+}
