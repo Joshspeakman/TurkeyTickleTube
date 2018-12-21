@@ -1,0 +1,8 @@
+<div class="container">
+  <input #messageBox (keyup.enter)="submit(messageBox.value)" />
+  <ul>
+    <li *ngFor="let message of messages">
+      {{message}}
+    </li>
+  </ul>
+</div>

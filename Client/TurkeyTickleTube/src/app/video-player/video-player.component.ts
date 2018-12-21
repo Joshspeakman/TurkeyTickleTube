@@ -1,13 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  selector: 'app-video-player',
+  templateUrl: './video-player.component.html',
+  styleUrls: ['./video-player.component.scss']
 })
-export class AppComponent {
+export class VideoPlayerComponent implements OnInit {
   player: YT.Player;
   id = 'TyyIO9axlWg';
+
+  constructor() { }
+
+  ngOnInit() {
+
+  }
 
   savePlayer(player: YT.Player) {
     this.player = player;
@@ -22,17 +28,29 @@ export class AppComponent {
         console.log('cued');
         break;
       case YT.PlayerState.ENDED:
-        console.log('ended');
+        this.onEnded();
         break;
       case YT.PlayerState.PAUSED:
-        console.log('paused');
+        this.onPaused();
         break;
       case YT.PlayerState.PLAYING:
-        console.log('playing');
+        this.onPlaying();
         break;
       case YT.PlayerState.UNSTARTED:
         console.log('unstarted');
         break;
     }
+  }
+
+  onPlaying() {
+    console.log('playing');
+  }
+
+  onPaused() {
+    console.log('paused');
+  }
+
+  onEnded() {
+    console.log('ended');
   }
 }

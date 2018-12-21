@@ -25,7 +25,11 @@ namespace TurkeyTickleTube.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options => options.AddPolicy("AllowCors", builder => {
+                builder.AllowCredentials().AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200");
+            }));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,7 +45,13 @@ namespace TurkeyTickleTube.Web
                 app.UseHsts();
             }
 
+            app.UseCors("AllowCors");
+
             app.UseHttpsRedirection();
+            app.UseSignalR(routes => {
+                routes.MapHub<ChatHub>("/chatHub");
+                // routes.MapHub<VideoPlayerHub>("/videoPlayerHub");
+            });
             app.UseMvc();
         }
     }
